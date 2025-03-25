@@ -1,5 +1,4 @@
 <?php 
-require "env.php";
 require "db.php";
 ?>
 
@@ -14,29 +13,7 @@ require "db.php";
 </head>
 <body>
     <a href="register.php">register</a>
-    <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $first_name = $_POST['firstName'];
-    $last_name = $_POST['lastName'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-        echo "Tous les champs sont requis!";
-    } else {
-        echo "Utilisateur enregistré avec succès!";
-        
-
-        $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
-        
-        $stmt->execute([$firstName, $lastName, $email, password_hash($password, PASSWORD_DEFAULT)]);
-        
-        echo "Utilisateur enregistré avec succès!";
-    }
-}
-?>
 
 <h2>Page des utilisateurs</h2>
 

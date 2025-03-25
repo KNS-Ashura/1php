@@ -1,3 +1,8 @@
+<?php 
+    require "db.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,13 +14,37 @@
 <body>
 <div class="container">
     <h1>Inscription</h1>
-    <form action="index.php" method="post">
+    <form action="#" method="post">
         <input type="text" name="firstName" placeholder="Prénom" required>
         <input type="text" name="lastName" placeholder="Nom" required>
         <input type="email" name="email" placeholder="Adresse email" required>
         <input type="password" name="password" placeholder="Mot de passe" required>
         <button type="submit">S'inscrire</button>
     </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+            echo "Tous les champs sont requis!";
+        } else {
+            echo "Utilisateur enregistré avec succès!";
+
+            // Préparation de la requête d'insertion avec date et heure actuelles
+            $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, email, password, created_at, updated_at) 
+                                    VALUES (?, ?, ?, ?, NOW(), NOW())");
+
+            // Exécution de la requête
+            $stmt->execute([$firstName, $lastName, $email, password_hash($password, PASSWORD_DEFAULT)]);
+
+            echo "Utilisateur enregistré avec succès!";
+        }
+    }
+?>
 </div>
 </body>
 </html>

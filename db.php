@@ -1,6 +1,8 @@
 <?php
 // database.php
 
+require "env.php";
+
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
