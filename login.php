@@ -29,13 +29,24 @@
                 $stmt->execute([$email]);
                 $user = $stmt->fetch();
 
-                if ($user && password_verify($password, $user['password'])) {
+                var_dump($user);
+                echo "<br>";
+                var_dump($password);
+                echo "<br>";
+                var_dump($user['password']);
+                echo "<br>";
+                echo "<br>";
+                var_dump(password_verify($password, $user['password']));
+
+
+                if (password_verify($password, $user['password'])) {
                     echo "Connexion réussie!";
                 } else {
                     echo "Identifiants incorrects!";
                 }
             }
         }
+
     ?>
 </body>
 </html>

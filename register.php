@@ -23,7 +23,7 @@
     </form>
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+        
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
         $email = $_POST['email'];
@@ -32,19 +32,28 @@
         if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
             echo "Tous les champs sont requis!";
         } else {
-            echo "Utilisateur enregistré avec succès!";
+            // Vérifier si l'email existe déjà dans la base de données
+            $stmt = $conn->prepare("SELECT COUNT(*) FROM user WHERE email = ?");
+            $stmt->execute([$email]);
+            $emailExists = $stmt->fetchColumn();
 
-            // Préparation de la requête d'insertion avec date et heure actuelles
-            $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, email, password, created_at, updated_at) 
-                                    VALUES (?, ?, ?, ?, NOW(), NOW())");
+            if ($emailExists > 0) {
+                // L'email est déjà utilisé
+                echo "Un compte avec cet email existe déjà!";
+            } else {
+                // Préparation de la requête d'insertion avec date et heure actuelles
+                $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, email, password, created_at, updated_at) 
+                                        VALUES (?, ?, ?, ?, NOW(), NOW())");
 
-            // Exécution de la requête
-            $stmt->execute([$firstName, $lastName, $email, password_hash($password, PASSWORD_DEFAULT)]);
+                // Exécution de la requête
+                $stmt->execute([$firstName, $lastName, $email, password_hash($password, PASSWORD_DEFAULT)]);
 
-            echo "Utilisateur enregistré avec succès!";
+                echo "Utilisateur enregistré avec succès!";
+            }
         }
     }
 ?>
+
 <a href="login.php">se connecter</a>
 </div>
 </body>
