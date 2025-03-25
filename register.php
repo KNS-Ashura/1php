@@ -45,6 +45,7 @@
         }
     }
 ?>
+<a href="login.php">se connecter</a>
 </div>
 </body>
 </html>
