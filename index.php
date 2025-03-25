@@ -71,8 +71,8 @@ require "db.php";
                 <td><?= htmlspecialchars($user['firstName'] . ' ' . $user['lastName']) ?></td>
                 <td><?= htmlspecialchars($user['description']) ?></td>
                 <td>
-                    <?php if (isset($_SESSION['firstName']) && isset($_SESSION['lastName'])) : ?>
-                        <?php if ($_SESSION['firstName'] != $user['firstName'] || $_SESSION['lastName'] != $user['lastName']) : ?>
+                    <?php if (isset($_SESSION['id'])) : ?>
+                        <?php if ($_SESSION['id'] != $user['Id']) : ?>
                             <a href="editUser.php?id=<?= $user['Id'] ?>">Modifier</a> | 
                             <a href="deleteUser.php?id=<?= $user['Id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
                         <?php endif; ?>

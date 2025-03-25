@@ -18,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['firstName'] = $user['firstName'];
             $_SESSION['lastName'] = $user['lastName'];
             $_SESSION['email'] = $user['email'];
+            $_SESSION['id'] = $user['id'];
+
 
             header("Location: index.php");
             exit(); // Arrêter l'exécution après la redirection
