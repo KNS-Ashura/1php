@@ -1,9 +1,5 @@
 <?php
 // database.php
-$host = 'db';
-$dbname = 'monsite';
-$user = 'user';
-$password = 'password';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
